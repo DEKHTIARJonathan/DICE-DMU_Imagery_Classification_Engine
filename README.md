@@ -1,1 +1,1 @@
-# DICE-DMU_Imagery_Comparison_Engine
+# DICE - DMU Imagery Comparison Engine
