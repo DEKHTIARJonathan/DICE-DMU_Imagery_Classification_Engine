@@ -17,9 +17,21 @@ This process will not be deeply explored. Please refer to the tensorflow documen
 We recommend using the [Anaconda Python](https://www.continuum.io/downloads) environment. It will make the installation a lot easier.
 
 The following libraries are mandatory to run the project:
-- tensorflow
-- numpy
-- matplotlib
+- **tensorflow**: version => 1.1.0
+- **numpy**: version => 1.12.1
+- **matplotlib**: version => 2.0.1
+
+We recommend using the latest versions available for each library, in case of trouble please check the version and try installing the versions mentionned above:
+
+```python
+import tensorflow as tf
+import numpy as np
+import matplotlib as mt
+
+print("tensorflow version:", tf.__version__)
+print("numpy version:",      np.__version__)
+print("matplotlib version:", mt.__version__)
+```
 
 ## Cite This Work
 *DEKHTIAR Jonathan, DURUPT Alexandre, BRICOGNE Matthieu, EYNARD Benoit, ROWSON Harvey and KIRITSIS Dimitris* (2017). <br>
