@@ -2,11 +2,24 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
 
-## Project Architecture
+This repository contains a Tensorflow implementation of the DICE application.
 
-## Branch Description
+A Deep Convolutional Neural Network model, [Inception-V3](http://arxiv.org/abs/1512.00567) developed by Szegedy et al., pretrained on the [ImageNet](http://www.image-net.org/) dataset has been used for this application. The final layers have been retrained using a transfer learning method, due to the limited amount of data available in the DMU-Net dataset. This process gives much more accurate results and less overfitting on small dataset.
+
+## Hardware Requirements
+
+NVidia GPU cards **GTX Titan X** have been used to accelerate the computation. The final layers fine-tuning process should be running with a powerful CPU in an acceptable period of time (expect a few hours of computation).
 
 ## Installation
+
+This process will not be deeply explored. Please refer to the tensorflow documentation for the installation of the library and GPU CUDA drivers, if necessary.
+
+We recommend using the [Anaconda Python](https://www.continuum.io/downloads) environment. It will make the installation a lot easier.
+
+The following libraries are mandatory to run the project:
+- tensorflow
+- numpy
+- matplotlib
 
 ## Cite This Work
 *DEKHTIAR Jonathan, DURUPT Alexandre, BRICOGNE Matthieu, EYNARD Benoit, ROWSON Harvey and KIRITSIS Dimitris* (2017). <br>
