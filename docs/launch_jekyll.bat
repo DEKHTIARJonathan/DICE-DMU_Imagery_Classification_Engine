@@ -1,0 +1,2 @@
+call jekyll serve
+PAUSE;

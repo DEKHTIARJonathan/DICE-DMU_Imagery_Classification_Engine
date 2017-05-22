@@ -1,0 +1,11 @@
+# Site settings
+title: DICE - a Deep Learning based DMU Imagery Classification Engine 
+tag_text: DICE
+description: DICE is a Deep Learning classification engine applied to Digital Mock-Ups (DMU).
+repo_url: https://github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine
+
+# Build settings
+markdown: kramdown
+exclude: ["README.md"]
+sass:
+  style: compressed
