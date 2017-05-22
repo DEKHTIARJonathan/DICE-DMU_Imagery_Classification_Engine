@@ -101,3 +101,6 @@ ENV/
 .mypy_cache/
 data/*/*.jpg
 *.tfrecord
+data_augmented/*.jpg
+inception-v3/*.ckpt*
+inception-v3-2016-03-01.tar.gz
