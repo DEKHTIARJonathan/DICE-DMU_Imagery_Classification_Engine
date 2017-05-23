@@ -43,7 +43,7 @@ def image_to_tfexample(image_data, image_format, height, width, class_id):
             'image/width': int64_feature(width),
     }))
 
-def write_label_file(labels_to_class_names, dataset_dir, filename):
+def write_label_file(labels_to_class_names, dataset_dir, filename="label.txt"):
     """Writes a file with the list of class names.
 
     Args:
@@ -58,7 +58,7 @@ def write_label_file(labels_to_class_names, dataset_dir, filename):
             f.write('%d:%s\n' % (label, class_name))
 
 
-def has_labels(dataset_dir, filename=LABELS_FILENAME):
+def has_labels(dataset_dir, filename="label.txt"):
     """Specifies whether or not the dataset directory contains a label map file.
 
     Args:
@@ -71,7 +71,7 @@ def has_labels(dataset_dir, filename=LABELS_FILENAME):
     return tf.gfile.Exists(os.path.join(dataset_dir, filename))
 
 
-def read_label_file(dataset_dir, filename=LABELS_FILENAME):
+def read_label_file(dataset_dir, filename="label.txt"):
     """Reads the labels file and returns a mapping from ID to class name.
 
     Args:
