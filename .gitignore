@@ -114,3 +114,7 @@ model/*.ckpt
 
 inception*.tar.gz
 data_prepared/labels.txt
+log/model.ckpt*
+log/*.pbtxt
+log/events.out.tfevents*
+log/checkpoint
