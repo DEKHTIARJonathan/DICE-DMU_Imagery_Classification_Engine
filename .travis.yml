@@ -15,8 +15,6 @@ before_install:
 - virtualenv venv
 
 install:
-- sudo apt-get update
-- sudo apt-get upgrade -y
 - pip install --upgrade pip
 - pip install -r requirements.txt
 
