@@ -39,5 +39,8 @@ def clf_image():
         rslt = clf.predict(file.read(), ext)
         return jsonify(rslt)
 
+    else:
+        return "Only POST Requests are accepted"
+
 if __name__ == "__main__":
     flaskrun(app)
