@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+        <header name = "Access-Control-Allow-Origin" value = "*" />
+
+        <title>Test TF Classifier</title>
+    </head>
+    <body>
+
+        <form id="my_form" method="post" action="http://127.0.0.1:5000/classify_image" enctype="multipart/form-data">
+            <input type="file" name="imagefile" accept="image/*" id="img_input"><br>
+            <img id="img_preview" src="#" style="max-width: 300px; max-height: 300px; display:none;"/><br>
+            <button type="submit" id="classifyBTN">Classify</button>
+            <button id="resetBTN">Clear File</button>
+        </form>
+
+        <div id="results"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+        <script>
+        $(function () {
+            $('#my_form').on('submit', function (e) {
+                // On empêche le navigateur de soumettre le formulaire
+                e.preventDefault();
+
+                var $form = $(this);
+                var formdata = (window.FormData) ? new FormData($form[0]) : null;
+                var data = (formdata !== null) ? formdata : $form.serialize();
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    contentType: false, // obligatoire pour de l'upload
+                    processData: false, // obligatoire pour de l'upload
+                    dataType: 'json', // selon le retour attendu
+                    data: data,
+                    success: function (response) {
+                        rslt_str = ""
+                        $.each(response.results, function(key, value){
+                            rslt_str += "<b>"+value.class_name+"</b>: " + Math.round(value.probability*100)/100 + "%<br><br>";
+                        });
+                        $("#results").html(rslt_str);
+                    }
+                });
+            });
+
+            function readURL(input) {
+
+                if ($("#img_input").val() != ""){
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#img_preview').attr('src', e.target.result);
+                            $('#img_preview').show();
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                else {
+                    $('#img_preview').attr('src', '');
+                    $('#img_preview').hide();
+                }
+
+            }
+
+            $("#img_input").change(function(){
+                readURL(this);
+            });
+
+            $("#resetBTN").click(function() {
+                $("#img_input").val("").change();
+                $("#results").html("");
+                return false;
+            });
+        });
+        </script>
+
+    </body>
+</html>
