@@ -15,6 +15,7 @@ def flaskrun(app, default_host="127.0.0.1", default_port="5000"):
     # a bit dangerous so not exposed in the help message.
     parser.add_option("-d", "--debug", action="store_true", dest="debug", help=optparse.SUPPRESS_HELP)
     parser.add_option("-p", "--profile", action="store_true", dest="profile", help=optparse.SUPPRESS_HELP)
+    parser.add_option("-t", "--test", action="store_true", dest="test", help=optparse.SUPPRESS_HELP)
 
     options, _ = parser.parse_args()
 
@@ -24,12 +25,12 @@ def flaskrun(app, default_host="127.0.0.1", default_port="5000"):
         from werkzeug.contrib.profiler import ProfilerMiddleware
 
         app.config['PROFILE'] = True
-        app.wsgi_app = ProfilerMiddleware(app.wsgi_app,
-                       restrictions=[30])
+        app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[30])
         options.debug = True
 
-    app.run(
-        debug=options.debug,
-        host=options.host,
-        port=int(options.port)
-    )
+    if not options.test:
+        app.run(
+            debug=options.debug,
+            host=options.host,
+            port=int(options.port)
+        )
