@@ -1,0 +1,13 @@
+{
+    "name": "DICE-DMU_Imagery_Classification_Engine",
+    "keywords": [
+        "flask",
+        "python",
+        "tensorflow",
+        "deeplearning"
+    ],
+    "buildpacks": [
+        { "url": "https://github.com/heroku/heroku-buildpack-python" }
+    ],
+    "repository": "https://github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine/tree/web-api",
+}

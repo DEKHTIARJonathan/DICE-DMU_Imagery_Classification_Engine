@@ -28,15 +28,16 @@ def return_app_status():
 
 @app.route('/classify_image', methods = ['GET', 'POST'])
 def clf_image():
-   print(request)
-   if request.method == 'POST':
 
-      file = request.files['imagefile']
+    if request.method == 'POST':
 
-      filename = secure_filename(file.filename)
-      ext = filename.split(".")[-1:][0].lower()
+        file = request.files['imagefile']
 
-      rslt = clf.predict(file.read(), ext)
-      return jsonify(rslt)
+        filename = secure_filename(file.filename)
+        ext = filename.split(".")[-1:][0].lower()
 
-flaskrun(app)
+        rslt = clf.predict(file.read(), ext)
+        return jsonify(rslt)
+
+if __name__ == "__main__":
+    flaskrun(app)

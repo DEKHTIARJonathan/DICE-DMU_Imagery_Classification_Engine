@@ -15,6 +15,9 @@ before_install:
 - virtualenv venv
 
 install:
+- sudo apt-get update
+- sudo apt-get install libc6 -y
+- sudo apt-get install glibc -y
 - pip install --upgrade pip
 - pip install -r requirements.txt
 
