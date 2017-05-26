@@ -1,12 +1,16 @@
 language: python
+
 cache:
 - pip
+
 python:
 - '3.4'
 - '3.5'
 - '3.6'
+
 before_install:
 - virtualenv venv
+
 install:
 - pip install --upgrade pip
 - pip install -r requirements.txt
