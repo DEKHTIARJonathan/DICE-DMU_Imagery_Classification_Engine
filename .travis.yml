@@ -1,5 +1,5 @@
 # install system package
-dist: xenial
+dist: trusty
 sudo: required
 
 language: python
@@ -29,8 +29,7 @@ deploy:
   app: dice-dmu-classifier
   api_key:
     secure: kfLzZdlOBd1qYNhWMhcWV8tCe1IFsyT3PrUvDsKbQ8tteBj1WQccgmC0tuVvhao+NU6NSVc967wBoV1h9pxSm39QR8lRlbfO2eQiErEv2gFD3Ffgyq9ZXM5/8jh35Jd4w5pmoSWCMuChzqpzKrOvxBK56UW4gwaN44i6BS7Khkog11RlssJBiluBFCfCMeATjbzwdgUPCsseWLNnA0tvwfRMWpRg/T3OkMrVOGYgGp/hf6g69spRr5ZoVHRi0nO36xlfl8PguaL/OJ5ChmCHtsEcH4KXKzhrxEChDx1tu7+aMN2W0gW1F2ncopThczYjX/mjQJLCjZpOHI1cPFqtK8wVQoedS3g6gbKL+PoAQIwKHgR4CrUpJ2xLUyFIDy2PCJ19/C8Dvuz/JqFTzLzt1iGrgYUiyY0UTBX0Cq/gUubsHvhDXEJdSFIYWZ1Mp5764mK+Kp1+EiXUyWrqepVvdCcaCfp5rAm1QE05GipgsIcJdVZPIeSBP2FRPremtLrL97/FWXTN5/E+ebgI0IblY7Dtakxr7E5z/Y4XIAlzcsWdWMLDaX58sRVbD2g4561ATbYPzYneCPNZ3pXrvPXzsec23aaFRIWj4qEEVPZd71jaSRhTwzLNj3w3uegs5ddfbjVjZVMpDcu601Q4p/DBFJDLTwf9UxlM2lS0qSvTeSM=
-  on: 
+  on:
     branch: web-api
     python: '3.5'
     repo: DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine
-
