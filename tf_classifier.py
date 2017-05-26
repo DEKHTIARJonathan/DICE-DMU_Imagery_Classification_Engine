@@ -1,4 +1,4 @@
-import os, sys, io, datetime
+import os, sys, io, datetime, urllib
 
 import tensorflow as tf
 import numpy as np
@@ -9,13 +9,18 @@ from inception_files.datasets import imagenet
 from inception_files.nets.inception_v1 import inception_v1, inception_v1_arg_scope, inception_v1_base
 from inception_files.preprocessing import inception_preprocessing
 
-slim = tf.contrib.slim
+slim            = tf.contrib.slim
 
-IMAGE_SIZE = inception_v1.default_image_size
+IMAGE_SIZE      = inception_v1.default_image_size
 
-MODEL_PATH = "inception_files/models/inception_v1.ckpt"
+MODEL_REPO_URL  = "https://raw.githubusercontent.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine/web-api"
+MODEL_PATH      = "inception_files/models"
+MODEL_NAME      = "inception_v1.ckpt"
 
-JPEG_EXT_LIST     = ["jpg", "jpeg"]
+MODEL_FILEPATH  = MODEL_PATH + "/" + MODEL_NAME
+MODEL_URL       = MODEL_REPO_URL + "/" + MODEL_PATH + "/" +MODEL_NAME
+
+JPEG_EXT_LIST   = ["jpg", "jpeg"]
 
 class Tensorflow_ImagePredictor():
 
@@ -27,6 +32,18 @@ class Tensorflow_ImagePredictor():
     names             = imagenet.create_readable_names_for_imagenet_labels()
 
     def __init__(self):
+        print("Tensorflow_ImagePredictor: Model Checking Starting ...")
+
+        if not os.path.isdir(MODEL_PATH):
+            os.makedirs(MODEL_PATH)
+
+        if not os.path.isfile(MODEL_FILEPATH):
+            urllib.request.urlretrieve (MODEL_URL, MODEL_FILEPATH)
+
+        print("Tensorflow_ImagePredictor: Model Checking Finished ...\n")
+
+        ########################################################################
+
         print("Tensorflow_ImagePredictor: Initialisation Starting ...")
 
         self.file_cond         = tf.equal(self.ext_plh, JPEG_EXT_LIST)
@@ -52,7 +69,7 @@ class Tensorflow_ImagePredictor():
         self.probabilities = tf.nn.softmax(self.logits)
 
         self.init_fn           = slim.assign_from_checkpoint_fn(
-                                    MODEL_PATH,
+                                    MODEL_FILEPATH,
                                     slim.get_variables_to_restore()
                                  )
 
