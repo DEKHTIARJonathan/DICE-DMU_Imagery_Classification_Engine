@@ -1,16 +1,16 @@
-from flask import Flask, jsonify, request, current_app
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from flaskrun import flaskrun
 from werkzeug import secure_filename
 
-import urllib, datetime, os, sys
+import datetime
 
 import tf_classifier as tf
 
 app = Flask(__name__)
 CORS(app)
 
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # Limit of 16Mb
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024 # Limit of 16Mb
 
 clf = tf.Tensorflow_ImagePredictor()
 
