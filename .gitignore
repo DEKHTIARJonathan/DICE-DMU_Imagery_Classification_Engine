@@ -105,16 +105,12 @@ ENV/
 data/*/*.jpg
 data/*/*.jpg
 
+data_cleaned/*/*/*.jpg
+data_cleaned/*/*.jpg
+data_cleaned/*.jpg
+
 data_augmented/*/*/*.jpg
 data_augmented/*/*.jpg
 data_augmented/*.jpg
 
-model/*.ckpt*
-model/*.ckpt
-
-inception*.tar.gz
 data_prepared/labels.txt
-log/model.ckpt*
-log/*.pbtxt
-log/events.out.tfevents*
-log/checkpoint
