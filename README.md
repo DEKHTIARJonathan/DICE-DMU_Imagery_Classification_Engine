@@ -1,6 +1,9 @@
 # DICE - DMU Imagery Classification Engine
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
+[![Build Status](https://travis-ci.org/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine.svg?branch=web-api)](https://travis-ci.org/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine)
+[![Dependency Status](https://gemnasium.com/badges/github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine.svg)](https://gemnasium.com/github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=dice-dmu-classifier)](https://dice-dmu-classifier.herokuapp.com)
 
 This repository contains a Tensorflow implementation of the DICE application.
 
