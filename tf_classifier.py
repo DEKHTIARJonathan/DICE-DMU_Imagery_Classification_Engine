@@ -59,8 +59,10 @@ class Tensorflow_ImagePredictor():
         self.processed_image   = inception_preprocessing.preprocess_image(self.image, IMAGE_SIZE, IMAGE_SIZE, is_training=False)
         self.processed_images  = tf.expand_dims(self.processed_image, 0)
 
-        self.sess = tf.Session()
-
+        #Config is necessary in order to prevent windows GPU compute failure
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        self.sess = tf.Session(config=config)
 
         # Create the model, use the default arg scope to configure the batch norm parameters.
         with slim.arg_scope(inception_v1_arg_scope()):
