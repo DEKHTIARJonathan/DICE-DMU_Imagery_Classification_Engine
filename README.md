@@ -3,8 +3,10 @@
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
 [![Build Status](https://travis-ci.org/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine.svg?branch=master)](https://travis-ci.org/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine)
 [![Dependency Status](https://gemnasium.com/badges/github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine.svg)](https://gemnasium.com/github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=dice-dmu-classifier)](https://dice-dmu-classifier.herokuapp.com)
 
-This repository contains a Tensorflow implementation of the DICE application.
+
+This repository contains a Tensorflow implementation of the DICE application./
 
 A Deep Convolutional Neural Network model, [Inception-V3](http://arxiv.org/abs/1512.00567) developed by Szegedy et al., pretrained on the [ImageNet](http://www.image-net.org/) dataset has been used for this application. The final layers have been retrained using a transfer learning method, due to the limited amount of data available in the DMU-Net dataset. This process gives much more accurate results and less overfitting on small dataset.
 
