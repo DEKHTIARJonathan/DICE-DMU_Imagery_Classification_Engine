@@ -138,7 +138,7 @@ def _get_filenames_and_classes(dataset_dir):
     photo_filenames = []
     for _class in class_names:
         directory = os.path.join(dataset_dir, _class)
-        photo_filenames.extend([os.path.join(directory, f) for f in os.listdir(directory) if re.match(r'[a-zA-Z0-9]*\.(?:jpg|jpeg|JPG|JPEG)', f)])
+        photo_filenames.extend([os.path.join(directory, f) for f in os.listdir(directory) if re.match(r'[a-zA-Z0-9_-]*\.(?:jpg|jpeg|JPG|JPEG|png|PNG)', f)])
 
     return photo_filenames, sorted(class_names)
 
