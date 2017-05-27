@@ -16,7 +16,15 @@ clf = tf.Tensorflow_ImagePredictor()
 
 @app.route('/')
 def return_index():
-    return current_app.send_static_file('index.html')
+    return app.send_static_file('index.html')
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return app.send_static_file('css' + "/" + path)
+
+@app.route('/images/<path:path>')
+def send_img(path):
+    return app.send_static_file('images' + "/" + path)
 
 @app.route('/status')
 def return_app_status():

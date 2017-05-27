@@ -1,84 +1,380 @@
+<!DOCTYPE HTML>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="DICE is a Deep Learning classification engine applied to Digital Mock-Ups (DMU).">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta http-equiv="Access-Control-Allow-Origin" content="*">
-        <header name = "Access-Control-Allow-Origin" value = "*" />
+        <title>DICE - a Deep Learning based DMU Imagery Classification Engine</title>
 
-        <title>Test TF Classifier</title>
+        <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="images/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="images/favicons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
+
+        <link rel="stylesheet" href="css/main.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.0/jquery.modal.min.css" integrity="sha256-rll6wTV76AvdluCY5Pzv2xJfw2x7UXnK+fGfj9tQocc=" crossorigin="anonymous" />
+
+        <style>
+            .modal {
+                max-width: 900px;
+            }
+            .label-file {
+                cursor: pointer;
+                color: #00b1ca;
+                font-weight: bold;
+            }
+            .label-file:hover {
+                color: #25a5c4;
+            }
+
+            #img_input {
+                display: none;
+            }
+            ul {
+                list-style-type: none;
+            }
+            .github-corner:hover .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+            @keyframes octocat-wave {
+                0%, 100% {
+                    transform: rotate(0)
+                }
+                20%, 60% {
+                    transform: rotate(-25deg)
+                }
+                40%, 80% {
+                    transform: rotate(10deg)
+                }
+            }
+            @media (max-width: 500px) {
+                .github-corner:hover .octo-arm {
+                    animation: none
+                }
+                .github-corner .octo-arm {
+                    animation: octocat-wave 560ms ease-in-out
+                }
+            }
+            .skillbar {
+                position:relative;
+                display:block;
+                margin-bottom:15px;
+                width:90%;
+                background:#eee;
+                height:35px;
+                border-radius:3px;
+                -moz-border-radius:3px;
+                -webkit-border-radius:3px;
+                -webkit-transition:0.4s linear;
+                -moz-transition:0.4s linear;
+                -ms-transition:0.4s linear;
+                -o-transition:0.4s linear;
+                transition:0.4s linear;
+                -webkit-transition-property:width, background-color;
+                -moz-transition-property:width, background-color;
+                -ms-transition-property:width, background-color;
+                -o-transition-property:width, background-color;
+                transition-property:width, background-color;
+            }
+
+            .skillbar-title {
+                position:absolute;
+                top:0;
+                left:0;
+                width: 170px;
+                font-weight:bold;
+                font-size:13px;
+                color:#ffffff;
+                background:#6adcfa;
+                -webkit-border-top-left-radius:3px;
+                -webkit-border-bottom-left-radius:4px;
+                -moz-border-radius-topleft:3px;
+                -moz-border-radius-bottomleft:3px;
+                border-top-left-radius:3px;
+                border-bottom-left-radius:3px;
+            }
+
+            .skillbar-title span {
+                display:block;
+                background: #2980b9;
+                padding:0 20px;
+                height:35px;
+                line-height:35px;
+                -webkit-border-top-left-radius:3px;
+                -webkit-border-bottom-left-radius:3px;
+                -moz-border-radius-topleft:3px;
+                -moz-border-radius-bottomleft:3px;
+                border-top-left-radius:3px;
+                border-bottom-left-radius:3px;
+            }
+
+            .skillbar-wrapper{
+                width:100%;
+                display:inline-flex;
+            }
+
+            .skillbar-bar {
+                height:35px;
+                width:0px;
+                margin-left: 170px;
+                background: #55b9fc;
+                border-radius:3px;
+                -moz-border-radius:3px;
+                -webkit-border-radius:3px;
+            }
+
+            .skill-bar-percent {
+                width: 10%;
+                text-align: right;
+                color: #5e5e5e;
+                font-weight: 600;
+            }
+        </style>
     </head>
     <body>
+        <a href="https://github.com/DEKHTIARJonathan/DICE-DMU_Imagery_Classification_Engine" class="github-corner" target="_blank">
+            <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: fixed; top: 0; border: 0; right: 0; z-index: 9999">
+                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+            </svg>
+        </a>
 
-        <form id="my_form" method="post" action="/classify_image" enctype="multipart/form-data">
-            <input type="file" name="imagefile" accept="image/*" id="img_input"><br>
-            <img id="img_preview" src="#" style="max-width: 300px; max-height: 300px; display:none;"/><br>
-            <button type="submit" id="classifyBTN">Classify</button>
-            <button id="resetBTN">Clear File</button>
-        </form>
+        <!-- Header -->
+            <section id="header">
+                <div class="inner">
+                    <img src="images/DICE-DMU-Net.png">
+                    <h1>Welcome to <strong>DICE</strong> project webpage</h1>
+                    <p style="font-weight: 500; color: #eeeeee;">This project relies on the <a href="https://www.dmu-net.org" target="_blank">DMU-Net dataset</a>, feel free to explore.</p>
+                    <ul class="actions">
+                        <li><a href="#one" class="button scroll-btn">Try DICE Now...</a></li>
+                    </ul>
+                </div>
+            </section>
 
-        <div id="results"></div>
+        <!-- One -->
+        <section id="one" class="main style1">
+            <div class="container">
+                <div class="row 100%">
+                    <div class="12u">
+                        <header class="major">
+                            <h2>Try DICE now by inputing a screenshot or a photograph into the form</h2>
+                        </header>
+                        <p>
+                            Please bear in mind, that the model can not be 100% accurate and might return irrevelant results from time to time.<br>
+                            Its capabilities will improve when DMU-Net will be enriched by the research communities and manufacturers.
+                        </p>
+                    </div>
+                    <div class="6u 12u$(medium)">
+                        <form id="my_form" method="post" action="/classify_image" enctype="multipart/form-data">
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+                            <span id="file-select-button" class="browse button black">Choose a file...</span>
+                            <input id="img_input" type="file" accept="image/*" name="imagefile"><br>
+                            <br>
+                            <p class="browse">
+                                <strong>Maximum Filesize :</strong> 2MB<br>
+                                <strong>Supported Formats :</strong> jpeg, jpg, png.
+                            </p>
+
+                            <button type="submit" id="classifyBTN">Classify</button>
+                            <button type="reset" id="resetBTN">Clear File</button>
+                        </form>
+                    </div>
+                    <div class="6u$ 12u$(medium) important(medium)" style="text-align: center;">
+                        <img src="images/blank_image.jpg" alt="" id="img_preview" style="max-width:100%; max-height:300px;"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two -->
+        <section id="two" class="main style2" style="padding: 3em 0;">
+            <div class="container">
+                <div class="row 100%" style="text-align: center;">
+                    <header class="12u major">
+                        <h2>DICE is able to handle and classify the following part-families:</h2>
+                    </header>
+                    <div class="4u 6u$(medium)">Actuator</div>
+                    <div class="4u 6u$(medium)">Bar</div>
+                    <div class="4u 6u$(medium)">Body</div>
+                    <div class="4u 6u$(medium)">Brake</div>
+                    <div class="4u 6u$(medium)">Button</div>
+                    <div class="4u 6u$(medium)">Carter</div>
+                    <div class="4u 6u$(medium)">Clutch</div>
+                    <div class="4u 6u$(medium)">Crankshaft</div>
+                    <div class="4u 6u$(medium)">Electric Engine</div>
+                    <div class="4u 6u$(medium)">Gear</div>
+                    <div class="4u 6u$(medium)">Gear Wheel</div>
+                    <div class="4u 6u$(medium)">Geared Motor</div>
+                    <div class="4u 6u$(medium)">Nut</div>
+                    <div class="4u 6u$(medium)">Piston</div>
+                    <div class="4u 6u$(medium)">Pulley</div>
+                    <div class="4u 6u$(medium)">Pump</div>
+                    <div class="4u 6u$(medium)">Radiator</div>
+                    <div class="4u 6u$(medium)">Reducer</div>
+                    <div class="4u 6u$(medium)">Rim</div>
+                    <div class="4u 6u$(medium)">Ring</div>
+                    <div class="4u 6u$(medium)">Rod</div>
+                    <div class="4u 6u$(medium)">Rod Piston Assembly</div>
+                    <div class="4u 6u$(medium)">Screw</div>
+                    <div class="4u 6u$(medium)">Shock Absorber</div>
+                    <div class="4u 6u$(medium)">Thermic Engine</div>
+                    <div class="4u 6u$(medium)">Transmission</div>
+                    <div class="4u 6u$(medium)">Tyre</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Three -->
+        <section id="three" class="main style1 special">
+            <div class="container">
+                <header class="major">
+                    <h2>Open Source Licence - Creative Commons - CC-BY-SA-4.0</h2>
+                </header>
+                <h3 id="you-are-free-to">You are free to:</h3>
+                <ul>
+                    <li><strong>Share</strong> — copy and redistribute the material in any medium or format</li>
+                    <li><strong>Adapt</strong> — remix, transform, and build upon the material for any purpose, even commercially.</li>
+                </ul>
+                <p><em>The licensor cannot revoke these freedoms as long as you follow the license terms.</em></p>
+                <h3 id="under-the-following-terms">Under the following terms:</h3>
+                <ul>
+                    <li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</li>
+                    <li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li>
+                    <li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section id="footer">
+            <ul class="icons">
+                <li><a href="https://twitter.com/born2data" target="_blank" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="http://www.jonathandekhtiar.eu" target="_blank" class="icon alt fa-link"><span class="label">Personal Website</span></a></li>
+                <li><a href="https://www.feedcrunch.io/@dataradar" target="_blank" class="icon alt fa-rss"><span class="label">RSS Feed</span></a></li>
+                <li><a href="https://github.com/DEKHTIARJonathan/" class="icon alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                <li><a href="mailto:contact@jonathandekhtiar.eu" class="icon alt fa-envelope" target="_blank"><span class="label">Email</span></a></li>
+            </ul>
+            <br>
+            <div>Developed by <a href="http://www.jonathandekhtiar.eu" target="_blank">Jonathan DEKHTIAR</a></div>
+        </section>
+
+        <!-- AJAX response must be wrapped in the modal's root class. -->
+        <div id="API-Results" class="modal" style="display:none;">
+            <h3>DICE - Classification Results:</h3>
+            <div id="ajax-content"></div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.0/jquery.modal.min.js" integrity="sha256-UeH9wuUY83m/pXN4vx0NI5R6rxttIW73OhV0fE0p/Ac=" crossorigin="anonymous"></script>
 
         <script>
-        $(function () {
-            $('#my_form').on('submit', function (e) {
-                // On empêche le navigateur de soumettre le formulaire
-                e.preventDefault();
+            $(function () {
+                $(".scroll-btn").click(function(e){
+                    event.preventDefault();
 
-                var $form = $(this);
-                var formdata = (window.FormData) ? new FormData($form[0]) : null;
-                var data = (formdata !== null) ? formdata : $form.serialize();
+                    $('html, body').animate({
+                        scrollTop: $( $.attr(this, 'href') ).offset().top
+                    }, 1200);
+                });
+                $('#file-select-button').click(function(){
+                    $('#img_input').click();
+                });
+                $('#my_form').on('submit', function (e) {
+                    // On empêche le navigateur de soumettre le formulaire
+                    e.preventDefault();
 
-                $.ajax({
-                    url: $form.attr('action'),
-                    type: $form.attr('method'),
-                    contentType: false, // obligatoire pour de l'upload
-                    processData: false, // obligatoire pour de l'upload
-                    dataType: 'json', // selon le retour attendu
-                    data: data,
-                    success: function (response) {
-                        rslt_str = ""
-                        $.each(response.results, function(key, value){
-                            rslt_str += "<b>"+value.class_name+"</b>: " + Math.round(value.probability*100)/100 + "%<br><br>";
-                        });
-                        $("#results").html(rslt_str);
+                    var $form = $(this);
+                    var formdata = (window.FormData) ? new FormData($form[0]) : null;
+                    var data = (formdata !== null) ? formdata : $form.serialize();
+
+
+
+                    $.ajax({
+                        url: $form.attr('action'),
+                        type: $form.attr('method'),
+                        contentType: false, // obligatoire pour de l'upload
+                        processData: false, // obligatoire pour de l'upload
+                        dataType: 'json', // selon le retour attendu
+                        data: data,
+                        success: function (response) {
+                            rslt_str = "";
+
+                            $.each(response.results, function(key, value){
+                                var proba_precise = Math.round(value.probability*100)/100;
+                                var proba_rounded = Math.round(value.probability);
+                                var class_name = value.class_name;
+
+                                rslt_str += `<div class="skillbar-wrapper">
+                                    <div class="skillbar" data-percent="`+proba_rounded+`">
+                                        <div class="skillbar-title"><span>`+class_name+`</span></div>
+                                        <div class="skillbar-bar"></div>
+                                    </div> <!-- End Skill Bar -->
+                                    <div class="skill-bar-percent">`+proba_precise+`%</div>
+                                </div>`;
+                            });
+
+                            $("#ajax-content").html(rslt_str);
+
+                            $("#API-Results").modal({
+                                fadeDuration: 300
+                            });
+                        }
+                    });
+                });
+
+                function readURL(input) {
+
+                    if ($("#img_input").val() != ""){
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('#img_preview').attr('src', e.target.result);
+                            }
+
+                            reader.readAsDataURL(input.files[0]);
+                        }
                     }
+                    else
+                        $('#img_preview').attr('src', 'images/blank_image.jpg');
+
+                }
+
+                $("#img_input").change(function(){
+                    readURL(this);
+                });
+
+                $("#resetBTN").click(function() {
+                    $("#img_input").val("").change();
+                    $("#results").html("");
+                    return false;
                 });
             });
 
-            function readURL(input) {
-
-                if ($("#img_input").val() != ""){
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            $('#img_preview').attr('src', e.target.result);
-                            $('#img_preview').show();
-                        }
-
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-                else {
-                    $('#img_preview').attr('src', '');
-                    $('#img_preview').hide();
-                }
-
-            }
-
-            $("#img_input").change(function(){
-                readURL(this);
+            $('#API-Results').on($.modal.OPEN, function(event, modal) {
+                $('.skillbar').each(function(){
+                    $(this).find('.skillbar-bar').animate({
+                        width: ($(this).width() - 170) * $(this).attr('data-percent') / 100.0
+                    },2000);
+                });
             });
 
-            $("#resetBTN").click(function() {
-                $("#img_input").val("").change();
-                $("#results").html("");
-                return false;
-            });
-        });
         </script>
-
     </body>
 </html>
