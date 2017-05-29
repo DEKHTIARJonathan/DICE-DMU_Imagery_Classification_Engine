@@ -115,7 +115,12 @@ data_augmented/*.jpg
 
 data_prepared/labels.txt
 inception_files/models/*.ckpt
+
 output/*/checkpoint
-output/*/model.ckpt-*
-output/*/graph.pbtxt
-output/*/events.out.tfevents.*
+output/*/*.ckpt-*
+output/*/*.pbtxt
+output/*/*.tfevents.*
+
+inception_files/models/*.graph
+inception_files/models/*/*.graph
+inception_files/models/*/*.ckpt
