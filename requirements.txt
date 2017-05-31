@@ -1,6 +1,6 @@
 appdirs==1.4.3
 numpy==1.12.1
-opencv-python==3.2.0.7
+opencv-python==3.1.0.5
 packaging==16.8
 protobuf==3.3.0
 pyparsing==2.2.0
