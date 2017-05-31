@@ -2,8 +2,8 @@ appdirs==1.4.3
 click==6.7
 Flask==0.12.2
 Flask-Cors==3.0.2
-itsdangerous==0.24
 gunicorn==19.7.1
+itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
 numpy==1.12.1
