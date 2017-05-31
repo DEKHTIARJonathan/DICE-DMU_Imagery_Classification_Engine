@@ -36,7 +36,7 @@ import os
 from six.moves import urllib
 import tensorflow as tf
 
-import inception_files.datasets.dataset_utils
+from datasets import dataset_utils
 
 slim = tf.contrib.slim
 

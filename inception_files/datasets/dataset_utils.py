@@ -26,6 +26,7 @@ import tensorflow as tf
 
 LABELS_FILENAME = 'labels.txt'
 
+
 def int64_feature(values):
   """Returns a TF-Feature of int64s.
 

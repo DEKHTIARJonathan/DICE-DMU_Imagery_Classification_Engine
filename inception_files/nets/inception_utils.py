@@ -28,6 +28,7 @@ import tensorflow as tf
 
 slim = tf.contrib.slim
 
+
 def inception_arg_scope(weight_decay=0.00004,
                         use_batch_norm=True,
                         batch_norm_decay=0.9997,

@@ -229,7 +229,7 @@ def preprocess_for_train(image, height, width, bbox,
 
     tf.summary.image('final_distorted_image',
                      tf.expand_dims(distorted_image, 0))
-    distorted_image = tf.add(distorted_image, -0.5)
+    distorted_image = tf.subtract(distorted_image, 0.5)
     distorted_image = tf.multiply(distorted_image, 2.0)
     return distorted_image
 
@@ -241,7 +241,7 @@ def preprocess_for_eval(image, height, width,
   If height and width are specified it would output an image with that size by
   applying resize_bilinear.
 
-  If central_fraction is specified it would cropt the central fraction of the
+  If central_fraction is specified it would crop the central fraction of the
   input image.
 
   Args:
@@ -270,8 +270,8 @@ def preprocess_for_eval(image, height, width,
       image = tf.image.resize_bilinear(image, [height, width],
                                        align_corners=False)
       image = tf.squeeze(image, [0])
-    image = tf.add(image, -0.5)
-    image = tf.div(image, 0.5)
+    image = tf.subtract(image, 0.5)
+    image = tf.multiply(image, 2.0)
     return image
 
 

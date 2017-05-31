@@ -5,9 +5,11 @@ import numpy as np
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-from inception_files.datasets import imagenet
-from inception_files.nets.inception_v1 import inception_v1, inception_v1_arg_scope, inception_v1_base
-from inception_files.preprocessing import inception_preprocessing
+sys.path.append("inception_files")
+
+from datasets import imagenet
+from nets.inception_v1 import inception_v1, inception_v1_arg_scope, inception_v1_base
+from preprocessing import inception_preprocessing
 
 slim            = tf.contrib.slim
 
