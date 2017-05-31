@@ -88,7 +88,7 @@ class Tensorflow_ImagePredictor():
         sorted_inds = [i[0] for i in sorted(enumerate(-probabilities), key=lambda x:x[1])]
 
         payload = dict()
-        payload["status"] = "success"
+        payload["success"] = True
         payload["timestamp"] = str(datetime.datetime.now())
 
         payload["results"] = list()

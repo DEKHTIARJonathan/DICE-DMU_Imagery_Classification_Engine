@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flaskrun import flaskrun
 from werkzeug import secure_filename
 
-import datetime
+import datetime, urllib.request
 
 import tf_classifier as tf
 
@@ -26,29 +26,67 @@ def send_css(path):
 def send_img(path):
     return app.send_static_file('images' + "/" + path)
 
-@app.route('/status')
+@app.route('/status', strict_slashes=False)
 def return_app_status():
 
     payload = dict()
-    payload["status"] = "Success"
+    payload["success"] = True
     payload["timestamp"] = str(datetime.datetime.now())
+    
     return jsonify(payload)
 
-@app.route('/classify_image', methods = ['GET', 'POST'])
+@app.route('/classify_image', strict_slashes=False, methods = ['GET', 'POST'])
 def clf_image():
 
-    if request.method == 'POST':
+    try:
 
-        file = request.files['imagefile']
+        if request.method == 'POST':
 
-        filename = secure_filename(file.filename)
-        ext = filename.split(".")[-1:][0].lower()
+            file = request.files['imagefile']
 
-        rslt = clf.predict(file.read(), ext)
-        return jsonify(rslt)
+            filename = secure_filename(file.filename)
+            ext = filename.split(".")[-1:][0].lower()
 
-    else:
-        return "Only POST Requests are accepted"
+            rslt = clf.predict(file.read(), ext)
+            return jsonify(rslt)
+
+        else:
+            raise Exception("Only POST Requests are accepted")
+            
+    except Exception as e:
+        payload = dict()
+        payload["success"]   = False
+        payload["error"]     = str(e)
+        payload["timestamp"] = str(datetime.datetime.now())
+        
+        return jsonify(payload)
+        
+@app.route('/classify_image_url', strict_slashes=False, methods = ['GET', 'POST'])
+def clf_image_url():
+
+    try:
+
+        if request.method == 'POST':
+
+            image_url = request.form.get('imagefile_url')
+            image_data       = urllib.request.urlopen(image_url)
+            image_ext        = image_url.split(".")[-1:][0].lower()
+            
+            print("ext:", image_ext)
+
+            rslt = clf.predict(image_data.read(), image_ext)
+            return jsonify(rslt)
+
+        else:
+            raise Exception("Only POST Requests are accepted")
+            
+    except Exception as e:
+        payload = dict()
+        payload["success"]   = False
+        payload["error"]     = str(e)
+        payload["timestamp"] = str(datetime.datetime.now())
+        
+        return jsonify(payload)
 
 if __name__ == "__main__":
     flaskrun(app)
