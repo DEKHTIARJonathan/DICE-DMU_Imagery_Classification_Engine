@@ -104,14 +104,31 @@ ENV/
 
 data/*/*.jpg
 data/*/*.jpg
+data/*/*.png
+data/*/*.png
 
+data_cleaned/*/*/*.png
+data_cleaned/*/*.png
+data_cleaned/*.png
 data_cleaned/*/*/*.jpg
 data_cleaned/*/*.jpg
 data_cleaned/*.jpg
 
+data_augmented/*/*/*.png
+data_augmented/*/*.png
+data_augmented/*.png
 data_augmented/*/*/*.jpg
 data_augmented/*/*.jpg
 data_augmented/*.jpg
+
+data_bg/*/*/*/*.jpg
+data_bg/*/*/*.jpg
+data_bg/*/*.jpg
+data_bg/*.jpg
+data_bg/*/*/*/*.png
+data_bg/*/*/*.png
+data_bg/*/*.png
+data_bg/*.png
 
 data_prepared/labels.txt
 inception_files/models/*.ckpt
