@@ -196,22 +196,27 @@
                         </p>
                         
                         <div class="row 100%">
-                            <a href="#" data-img_url="images/examples/1.jpg" class="2u picture-link">Picture-1</a> 
-                            <a href="#" data-img_url="images/examples/2.jpg" class="2u picture-link">Picture-2</a>
-                            <a href="#" data-img_url="images/examples/3.jpg" class="2u picture-link">Picture-3</a>
-                            <a href="#" data-img_url="images/examples/4.jpg" class="2u picture-link">Picture-4</a>
-                            <a href="#" data-img_url="images/examples/5.jpg" class="2u picture-link">Picture-5</a>
-                            <a href="#" data-img_url="images/examples/6.jpg" class="2u picture-link">Picture-6</a>
+                            <a href="#" data-img_url="https://dekhtiarjonathan.github.io/DICE-DMU_Imagery_Classification_Engine/images/examples/1.jpg" class="2u picture-link">Picture-1</a> 
+                            <a href="#" data-img_url="https://dekhtiarjonathan.github.io/DICE-DMU_Imagery_Classification_Engine/images/examples/2.jpg" class="2u picture-link">Picture-2</a>
+                            <a href="#" data-img_url="https://dekhtiarjonathan.github.io/DICE-DMU_Imagery_Classification_Engine/images/examples/3.jpg" class="2u picture-link">Picture-3</a>
+                            <a href="#" data-img_url="https://dekhtiarjonathan.github.io/DICE-DMU_Imagery_Classification_Engine/images/examples/4.jpg" class="2u picture-link">Picture-4</a>
+                            <a href="#" data-img_url="https://dekhtiarjonathan.github.io/DICE-DMU_Imagery_Classification_Engine/images/examples/5.jpg" class="2u picture-link">Picture-5</a>
+                            <a href="#" data-img_url="https://dekhtiarjonathan.github.io/DICE-DMU_Imagery_Classification_Engine/images/examples/6.jpg" class="2u picture-link">Picture-6</a>
                         </div>   
                         
                     </div>
                     
-                    <div class="6u 12u$(medium)">                        
-                        <form id="my_form" method="post" action="https://dice-dmu-classifier.herokuapp.com/classify_image" enctype="multipart/form-data">
+                    <div class="6u 12u$(medium)">  
+                    
+                        <p style="margin-bottom:20px; font-weight: 500;">
+                            Or upload one by yourself: 
+                        </p>
+                        
+                        <form id="my_form" method="post" action="https://dice-dmu-classifier.herokuapp.com/" enctype="multipart/form-data">
 
                             <span id="file-select-button" class="browse button black">Choose a file...</span>
                             <input id="img_input" type="file" accept="image/*" name="imagefile"><br>
-                            <input id="img_input_url" type="hidden"  value="">
+                            <input id="img_input_url" type="hidden"  value="" name="imagefile_url">
                             <br>
                             <p class="browse">
                                 <strong>Maximum Filesize :</strong> 2MB<br>
@@ -318,12 +323,6 @@
 
         <script>
             $(function () {
-                $(".picture-link").click(function(e){
-                    event.preventDefault();
-
-                    img_url = $(this).data( "img_url" );
-                    $('#img_preview').attr("src", img_url);
-                });
             
                 $(".scroll-btn").click(function(e){
                     event.preventDefault();
@@ -331,6 +330,14 @@
                     $('html, body').animate({
                         scrollTop: $( $.attr(this, 'href') ).offset().top
                     }, 1200);
+                });
+                
+                $(".picture-link").click(function(e){
+                    event.preventDefault();
+
+                    img_url = $(this).data( "img_url" );
+                    $('#img_preview').attr("src", img_url);
+                    $('#img_input_url').val(img_url);
                 });
                 
                 $('#file-select-button').click(function(){
@@ -345,9 +352,17 @@
                     var $form = $(this);
                     var formdata = (window.FormData) ? new FormData($form[0]) : null;
                     var data = (formdata !== null) ? formdata : $form.serialize();
+                    
+                    var url = $form.attr('action');
+                    
+                    if ($('#img_input_url').val() == ""){
+                        url += "classify_image";
+                    } else {
+                        url += "classify_image_url";
+                    }
 
                     $.ajax({
-                        url: $form.attr('action'),
+                        url: url,
                         type: $form.attr('method'),
                         contentType: false, // obligatoire pour de l'upload
                         processData: false, // obligatoire pour de l'upload
@@ -404,6 +419,7 @@
                 $("#resetBTN").click(function() {
                     $("#img_input").val("").change();
                     $("#results").html("");
+                    $('#img_input_url').val("");
                     return false;
                 });
             });
