@@ -144,6 +144,11 @@
                 color: #5e5e5e;
                 font-weight: 600;
             }
+            
+            .picture-link{
+                border-bottom: none;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -183,11 +188,30 @@
                             <strong>To be noted: </strong>The DICE application server might be in sleep mode if it has not been used for a while. Please let your first classification resquest run for a dozen of seconds, if you do not get your answer immediately. Once the server is awake, you will get your answers in less than a second.
                         </p>
                     </div>
-                    <div class="6u 12u$(medium)">
+                    
+                    <div class="12u" style="margin-bottom:50px">
+                    
+                        <p style="margin-bottom:20px; font-weight: 500;">
+                            Try one of the following pictures: 
+                        </p>
+                        
+                        <div class="row 100%">
+                            <a href="#" data-img_url="images/examples/1.jpg" class="2u picture-link">Picture-1</a> 
+                            <a href="#" data-img_url="images/examples/2.jpg" class="2u picture-link">Picture-2</a>
+                            <a href="#" data-img_url="images/examples/3.jpg" class="2u picture-link">Picture-3</a>
+                            <a href="#" data-img_url="images/examples/4.jpg" class="2u picture-link">Picture-4</a>
+                            <a href="#" data-img_url="images/examples/5.jpg" class="2u picture-link">Picture-5</a>
+                            <a href="#" data-img_url="images/examples/6.jpg" class="2u picture-link">Picture-6</a>
+                        </div>   
+                        
+                    </div>
+                    
+                    <div class="6u 12u$(medium)">                        
                         <form id="my_form" method="post" action="https://dice-dmu-classifier.herokuapp.com/classify_image" enctype="multipart/form-data">
 
                             <span id="file-select-button" class="browse button black">Choose a file...</span>
                             <input id="img_input" type="file" accept="image/*" name="imagefile"><br>
+                            <input id="img_input_url" type="hidden"  value="">
                             <br>
                             <p class="browse">
                                 <strong>Maximum Filesize :</strong> 2MB<br>
@@ -198,9 +222,11 @@
                             <button type="reset" id="resetBTN">Clear File</button>
                         </form>
                     </div>
+                    
                     <div class="6u$ 12u$(medium) important(medium)" style="text-align: center;">
                         <img src="images/blank_image.jpg" alt="" id="img_preview" style="max-width:100%; max-height:300px;"/>
                     </div>
+                    
                 </div>
             </div>
         </section>
@@ -292,6 +318,13 @@
 
         <script>
             $(function () {
+                $(".picture-link").click(function(e){
+                    event.preventDefault();
+
+                    img_url = $(this).data( "img_url" );
+                    $('#img_preview').attr("src", img_url);
+                });
+            
                 $(".scroll-btn").click(function(e){
                     event.preventDefault();
 
@@ -299,18 +332,19 @@
                         scrollTop: $( $.attr(this, 'href') ).offset().top
                     }, 1200);
                 });
+                
                 $('#file-select-button').click(function(){
                     $('#img_input').click();
                 });
+                
                 $('#my_form').on('submit', function (e) {
-                    // On empêche le navigateur de soumettre le formulaire
+                
+                    // We prevent the default action to happen
                     e.preventDefault();
 
                     var $form = $(this);
                     var formdata = (window.FormData) ? new FormData($form[0]) : null;
                     var data = (formdata !== null) ? formdata : $form.serialize();
-
-
 
                     $.ajax({
                         url: $form.attr('action'),
